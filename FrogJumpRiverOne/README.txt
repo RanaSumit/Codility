@@ -18,7 +18,7 @@ A[1] = 3;
 A[2] = 1;
 A[3] = 4;
 A[4] = 2;
-A[5] = 5;;
+A[5] = 5;
 
 
 Initially, the frog cannot jump across the pond in a single jump. However, in
