@@ -5,36 +5,31 @@ import java.util.Scanner;
 public class Main {
 
 
-    public static int[] solution(int[] arr, int n)
+    public static int[] solution(int N , int[] A)
     {
 
-        int[] result = new int[arr.length];
+        int[] counters = new int[N];
+        int max = 0;
+        int absMax = 0;
 
-
-        for (int i = 0; i < arr.length; i++) {
-            result[i] = arr[arr.length - 1 -i];
-        }
-        int currentMax = 0;
-        int lastIncrease = 0;
-        for(int i = 0; i < arr.length; i++)
-        {
-            if(arr[i] > n)
-            {
-                lastIncrease = currentMax;
+        for (int i=0; i<A.length; i++) {
+            if (A[i] == N+1) {
+                if ((i < A.length-1 && A[i+1] != N+1) || (i==A.length-1)) {
+                    absMax += max;
+                    max = 0;
+                    counters = new int[N];
+                }
+            } else {
+                counters[A[i]-1]++;
+                if (max < counters[A[i]-1])
+                    max = counters[A[i]-1];
             }
-            else
-            {
-                result[arr[i] - 1] = Math.max(result[arr[i] - 1], lastIncrease);
-                result[arr[i] - 1]++;
-                currentMax = Math.max(currentMax, result[arr[i] - 1]);
-            }
+        }
 
-        }
-        for(int i = 0; i < n; i++)
-        {
-            result[i] = Math.max(result[i], lastIncrease);
-        }
-        return result;
+        for (int i=0; i<counters.length; i++)
+            counters[i] += absMax;
+
+        return counters;
     }
 
     public static void main(String[] args) {
@@ -46,7 +41,7 @@ public class Main {
         {
             arr[i] = scan.nextInt();
         }
-        int[] result = solution(arr, n);
+        int[] result = solution(n, arr);
 
         System.out.println("Result: ");
 
